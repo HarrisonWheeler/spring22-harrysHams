@@ -79,11 +79,11 @@ function drawCart() {
         </div>
       </div>
     </div>`
-    subTotal += c.price
+    Math.floor(subTotal += c.price)
   })
   console.log('subtotal', subTotal);
   document.getElementById('cart').innerHTML = template
-  document.getElementById('total').innerText = Math.floor(subTotal)
+  document.getElementById('total').innerText = subTotal
 }
 
 function addToCart(itemId) {
@@ -93,7 +93,7 @@ function addToCart(itemId) {
   total += foundItem.price
   console.log('cart', cart);
   // Must call the other function for it to work!
-  // NOTE should refactor this into its own function - but we aint got time for that
+  // NOTE should refactor this into its own function
   if (cart.length >= 1) {
     document.getElementById('purchase').disabled = false
   }
@@ -106,6 +106,7 @@ function removeCartItem(index) {
   // const foundCartItemIndex = cart.findIndex(item => item.id == itemId)
   // NOTE filter is another way of handling a delete - but wont work as well without unique id's
   // cart = cart.filter(item => item.id !== itemId)
+  // grabbing the cartItem by its index, and subtracting the price from the total to "refund" that amount
   const cartItem = cart[index]
   total -= cartItem.price
   cart.splice(index, 1)
@@ -122,7 +123,7 @@ function purchase() {
     budget -= total
     total = 0
     cart = []
-    window.alert(`Thank you for your purchase - have fun in the hospital. Your burdget is ${budget}`)
+    window.alert(`Thank you for your purchase - have fun in the hospital. Your burdget is now ${budget}`)
   } else {
     window.alert('Imma call security')
   }
@@ -152,6 +153,7 @@ function playJohnCena() {
 
 function goHam() {
   setTimeout(() => {
+    // NOTE this will go and grab all descendants of any div element, iterate over all of them, and apply the css class of 'shake'
     // document.querySelectorAll('div').forEach(d => d.classList.add('spin'))
     document.querySelectorAll('div').forEach(d => d.classList.add('shake'))
   }, 2000)
